@@ -90,6 +90,8 @@ uvicorn main:app --reload --host 0.0.0.0 --port 8000
 
 The New Relic agent will automatically initialize and start reporting data.
 
+**Note on Logging**: By default, the New Relic agent logs to stderr, which integrates well with container orchestration systems and application logs. The logs will appear in your standard application output. If you need to log to a file instead, you can modify the `log_file` setting in `newrelic.ini`.
+
 ### 5. Verify the Integration
 
 #### Check Application Logs
