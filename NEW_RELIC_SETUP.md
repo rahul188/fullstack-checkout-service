@@ -15,7 +15,7 @@ New Relic has been integrated into this FastAPI application to provide:
 
 ### 1. Prerequisites
 
-- Python 3.8 or higher
+- Python 3.8 or higher (as required by this application)
 - New Relic account (sign up at [newrelic.com](https://newrelic.com))
 - New Relic license key
 

@@ -3,7 +3,11 @@ import os
 import newrelic.agent
 
 # Initialize New Relic with configuration file
-config_file = os.path.join(os.path.dirname(__file__), 'newrelic.ini')
+# Can be overridden with NEW_RELIC_CONFIG_FILE environment variable
+config_file = os.environ.get(
+    'NEW_RELIC_CONFIG_FILE',
+    os.path.join(os.path.dirname(__file__), 'newrelic.ini')
+)
 if os.path.exists(config_file):
     newrelic.agent.initialize(config_file)
 
