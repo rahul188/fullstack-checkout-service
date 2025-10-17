@@ -51,6 +51,10 @@ cd fullstack-checkout-service
 pip install -r requirements.txt
 ```
 
+3. (Optional) Configure New Relic monitoring:
+   - See [NEW_RELIC_SETUP.md](NEW_RELIC_SETUP.md) for detailed instructions
+   - Set environment variables: `NEW_RELIC_LICENSE_KEY` and `NEW_RELIC_APP_NAME`
+
 ## Running the Application
 
 Start the FastAPI server:
@@ -124,6 +128,7 @@ fullstack-checkout-service/
 - **FastAPI**: Modern, fast web framework for building APIs
 - **Pydantic**: Data validation using Python type annotations
 - **Uvicorn**: ASGI server for running the application
+- **New Relic**: Application performance monitoring and observability
 
 ### Frontend
 - **HTML5**: Semantic markup
