@@ -11,6 +11,7 @@ A full-stack checkout service application built with Python FastAPI backend and 
 - Order processing and management
 - In-memory data storage with demo products
 - CORS enabled for frontend integration
+- **New Relic APM monitoring** for performance tracking and error detection
 
 ### Frontend (HTML/CSS/JavaScript)
 - Responsive product catalog grid
@@ -124,12 +125,28 @@ fullstack-checkout-service/
 - **FastAPI**: Modern, fast web framework for building APIs
 - **Pydantic**: Data validation using Python type annotations
 - **Uvicorn**: ASGI server for running the application
+- **New Relic**: Application performance monitoring and observability
 
 ### Frontend
 - **HTML5**: Semantic markup
 - **CSS3**: Modern styling with flexbox and grid
 - **Vanilla JavaScript**: No framework dependencies
 - **Fetch API**: For making HTTP requests
+
+## Monitoring
+
+The application includes **New Relic APM** integration for comprehensive monitoring and observability. See [NEW_RELIC_SETUP.md](NEW_RELIC_SETUP.md) for detailed setup instructions.
+
+### Quick Start
+
+To enable New Relic monitoring, set these environment variables:
+
+```bash
+export NEW_RELIC_LICENSE_KEY="your_license_key_here"
+export NEW_RELIC_APP_NAME="fullstack-checkout-service"
+```
+
+The application will run normally without New Relic if these variables are not set.
 
 ## Development
 

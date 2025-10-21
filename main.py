@@ -1,3 +1,11 @@
+# New Relic initialization - must be first
+import os
+import newrelic.agent
+
+# Initialize New Relic agent if license key is provided
+if os.environ.get('NEW_RELIC_LICENSE_KEY'):
+    newrelic.agent.initialize('newrelic.ini')
+
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -112,6 +120,16 @@ async def checkout(checkout_request: CheckoutRequest):
     
     # Store order
     orders_db[order_id] = order
+    
+    # Add custom attributes for New Relic monitoring
+    if os.environ.get('NEW_RELIC_LICENSE_KEY'):
+        newrelic.agent.add_custom_attributes([
+            ('order_id', order_id),
+            ('order_total', total_amount),
+            ('item_count', len(order_items)),
+            ('payment_method', checkout_request.payment_method),
+            ('customer_email', checkout_request.customer_email)
+        ])
     
     return order
 
