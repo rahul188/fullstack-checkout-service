@@ -1,3 +1,14 @@
+# New Relic agent must be initialized first, before other imports
+import os
+
+# Only initialize New Relic if license key is provided
+if os.getenv('NEW_RELIC_LICENSE_KEY') and os.getenv('NEW_RELIC_ENABLED', 'true').lower() == 'true':
+    try:
+        import newrelic.agent
+        newrelic.agent.initialize('newrelic.ini')
+    except Exception as e:
+        print(f"Warning: Failed to initialize New Relic agent: {e}")
+
 from fastapi import FastAPI, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
@@ -56,6 +67,15 @@ async def get_product(product_id: int):
 async def checkout(checkout_request: CheckoutRequest):
     """Process a checkout request and create an order"""
     
+    # Add custom New Relic attributes for business monitoring
+    try:
+        import newrelic.agent
+        newrelic.agent.add_custom_attribute('customer_email', checkout_request.customer_email)
+        newrelic.agent.add_custom_attribute('payment_method', checkout_request.payment_method)
+        newrelic.agent.add_custom_attribute('cart_items_count', len(checkout_request.items))
+    except Exception:
+        pass  # New Relic not initialized or not available
+    
     if not checkout_request.items:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
@@ -112,6 +132,14 @@ async def checkout(checkout_request: CheckoutRequest):
     
     # Store order
     orders_db[order_id] = order
+    
+    # Add order total to New Relic custom attributes
+    try:
+        import newrelic.agent
+        newrelic.agent.add_custom_attribute('order_total', order.total_amount)
+        newrelic.agent.add_custom_attribute('order_id', order_id)
+    except Exception:
+        pass  # New Relic not initialized or not available
     
     return order
 
