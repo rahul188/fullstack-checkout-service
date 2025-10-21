@@ -37,6 +37,7 @@ The application comes with 8 pre-loaded demo products:
 ### Prerequisites
 - Python 3.8 or higher
 - pip (Python package manager)
+- (Optional) New Relic account for monitoring
 
 ### Setup
 
@@ -49,6 +50,15 @@ cd fullstack-checkout-service
 2. Install dependencies:
 ```bash
 pip install -r requirements.txt
+```
+
+3. (Optional) Configure New Relic monitoring:
+```bash
+# Copy the example environment file
+cp .env.example .env
+
+# Edit .env and add your New Relic license key
+# Get your license key from: https://one.newrelic.com/launcher/api-keys-ui.api-keys-launcher
 ```
 
 ## Running the Application
@@ -124,12 +134,66 @@ fullstack-checkout-service/
 - **FastAPI**: Modern, fast web framework for building APIs
 - **Pydantic**: Data validation using Python type annotations
 - **Uvicorn**: ASGI server for running the application
+- **New Relic**: APM and monitoring (optional)
 
 ### Frontend
 - **HTML5**: Semantic markup
 - **CSS3**: Modern styling with flexbox and grid
 - **Vanilla JavaScript**: No framework dependencies
 - **Fetch API**: For making HTTP requests
+
+## Monitoring with New Relic
+
+This application includes optional New Relic APM monitoring support. When enabled, it provides:
+
+- **Application Performance Monitoring**: Track response times, throughput, and errors
+- **Distributed Tracing**: Follow requests across your application
+- **Custom Business Metrics**: Track order totals, payment methods, and customer activity
+- **Error Tracking**: Automatic exception capture and reporting
+
+### Setting Up New Relic
+
+1. **Get a New Relic Account**: Sign up at [newrelic.com](https://newrelic.com) if you don't have one
+
+2. **Get Your License Key**: 
+   - Log into New Relic
+   - Go to [API Keys](https://one.newrelic.com/launcher/api-keys-ui.api-keys-launcher)
+   - Copy your license key
+
+3. **Configure Environment Variables**:
+   ```bash
+   export NEW_RELIC_LICENSE_KEY="your_license_key_here"
+   export NEW_RELIC_APP_NAME="Fullstack Checkout Service"
+   export NEW_RELIC_ENABLED=true
+   ```
+
+   Or create a `.env` file (copy from `.env.example`) and load it before running the app.
+
+4. **Run the Application**:
+   ```bash
+   python main.py
+   ```
+
+5. **View Your Data**: 
+   - Visit [New Relic One](https://one.newrelic.com)
+   - Navigate to APM & Services
+   - Find your application "Fullstack Checkout Service"
+
+### Custom Metrics
+
+The application tracks the following custom attributes in New Relic:
+
+- **order_total**: Total amount of each order
+- **order_id**: Unique identifier for each order
+- **customer_email**: Customer email (for grouping and filtering)
+- **payment_method**: Payment method used
+- **cart_items_count**: Number of items in the cart
+
+These can be used to create custom dashboards and alerts in New Relic.
+
+### Running Without New Relic
+
+If you don't want to use New Relic monitoring, simply don't set the `NEW_RELIC_LICENSE_KEY` environment variable, or set `NEW_RELIC_ENABLED=false`. The application will run normally without monitoring.
 
 ## Development
 
