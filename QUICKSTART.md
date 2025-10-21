@@ -75,6 +75,18 @@ curl -X POST http://localhost:8000/api/checkout \
 
 Press `Ctrl+C` in the terminal where the server is running.
 
+## Optional: Enable Monitoring
+
+Want to monitor your application performance? Enable New Relic APM:
+
+```bash
+export NEW_RELIC_LICENSE_KEY="your_license_key"
+export NEW_RELIC_APP_NAME="fullstack-checkout-service"
+python main.py
+```
+
+See [NEW_RELIC_SETUP.md](NEW_RELIC_SETUP.md) for detailed instructions.
+
 ## Need Help?
 
 - Check the full [README.md](README.md) for detailed documentation
